@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>adapt</title>
+    <style>
+        .img_sty{
+            width: 500px;
+            height: 500px;
+            border: 2px solid black;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            change();
+        };
+        function change(){
+            var get_container=document.getElementById("container_img");
+            var get_img=get_container.getElementsByTagName("img")[0];
+            var changed_w=get_container.offsetWidth-(2*get_container.clientLeft);
+            var changed_h=get_container.offsetHeight-(2*get_container.clientTop);
+            var ori_w=get_img.width;
+            var ori_h=get_img.height;
+            var per_w=ori_w/changed_w;
+            var per_h=ori_h/changed_h;
+            if(per_w>=1&&per_h<=1){
+                ori_w=parseInt(ori_w/per_w);
+                ori_h=parseInt(ori_h/per_w);
+                get_img.width=ori_w;
+                get_img.height=ori_h;
+            }
+            else if(per_w<=1&&per_h>=1){
+                ori_w=parseInt(ori_w/per_h);
+                ori_h=parseInt(ori_h/per_h);
+                get_img.width=ori_w;
+                get_img.height=ori_h;
+            }
+            else if(per_w>=1&&per_h>=1){
+                if(per_w>per_h){
+                    ori_w=parseInt(ori_w/per_w);
+                    ori_h=parseInt(ori_h/per_w);
+                }
+               else{
+                    ori_w=parseInt(ori_w/per_h);
+                    ori_h=parseInt(ori_h/per_h);
+                }
+                get_img.width=ori_w;
+                get_img.height=ori_h;
+            }
+            if(get_img.height<changed_h)
+            {
+                var getDistance=Math.floor((changed_h-get_img.height)/2);
+                get_img.style.marginTop=getDistance.toString()+"px";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="img_sty" id="container_img"><img src="img/12.png"> </div>
+</body>
+</html>
